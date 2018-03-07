@@ -38,7 +38,7 @@ def train():
     word2index = {x[0]: i + 2 for i, x in enumerate(word_freqs.most_common(MAX_FEATURES))}
     word2index["PAD"] = 0
     word2index["UNK"] = 1
-    index2word = {v: k for k, v in word2index.items()}
+
     X = np.empty(num_recs, dtype=list)
     y = np.zeros(num_recs)
     i = 0
@@ -60,7 +60,11 @@ def train():
 
     # 数据划分
     Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size=0.2, random_state=42)
+
     # 训练模型
     model = train_lstm(vocab_size, Xtrain, ytrain, Xtest, ytest)
 
-    return model, word2index
+    model.save('train_model.h5')
+
+if __name__ == '__main__':
+    train()
