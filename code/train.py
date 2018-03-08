@@ -10,16 +10,14 @@ import nltk
 import numpy as np
 
 # EDA
-from utils.lstm_train import train_lstm
+from utils.lstm_train import make_model
+
+MAX_SENTENCE_LENGTH = 40
 
 
-def train():
-    maxlen = 0  # 句子最大长度
-    word_freqs = collections.Counter()  # 词频
-    num_recs = 0  # 样本数
-    nltk.download('punkt')
+def word_to_index(maxlen, num_recs, word_freqs):
     # 文本转为索引数字模式
-    with open('/Users/jianglingjun/Document/PycharmProjects/SA-web-design/code/train_data.txt', 'r+') as f:
+    with open('../data/train_data.txt', 'r+') as f:
         for line in f:
             label, sentence = line.strip().split("\t")
             words = nltk.word_tokenize(sentence.lower())
@@ -32,18 +30,26 @@ def train():
     print('nb_words ', len(word_freqs))
 
     # 准备数据
-    MAX_SENTENCE_LENGTH = 40
     MAX_FEATURES = 2000
     vocab_size = min(MAX_FEATURES, len(word_freqs)) + 2
     word2index = {x[0]: i + 2 for i, x in enumerate(word_freqs.most_common(MAX_FEATURES))}
     word2index["PAD"] = 0
     word2index["UNK"] = 1
+    return word2index, vocab_size, num_recs, word_freqs
+
+
+def train():
+    nltk.download('punkt')
+    maxlen = 0  # 句子最大长度
+    num_recs = 0  # 样本数
+    word_freqs = collections.Counter()  # 词频
+    word2index, vocab_size, num_recs, word_freqs = word_to_index(maxlen, num_recs, word_freqs)
 
     X = np.empty(num_recs, dtype=list)
     y = np.zeros(num_recs)
     i = 0
 
-    with open('/Users/jianglingjun/Document/PycharmProjects/SA-web-design/code/train_data.txt', 'r+') as f:
+    with open('../data/train_data.txt', 'r+') as f:
         for line in f:
             label, sentence = line.strip().split("\t")
             words = nltk.word_tokenize(sentence.lower())
@@ -58,13 +64,14 @@ def train():
             i += 1
     X = sequence.pad_sequences(X, maxlen=MAX_SENTENCE_LENGTH)
 
-    # 数据划分
+    # 数据划分 80% 作为训练数据，20% 作为测试数据
     Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # 训练模型
-    model = train_lstm(vocab_size, Xtrain, ytrain, Xtest, ytest)
+    model = make_model(vocab_size, Xtrain, ytrain, Xtest, ytest)
 
-    model.save('train_model.h5')
+    model.save('../data/train_model.h5')
+
 
 if __name__ == '__main__':
     train()
