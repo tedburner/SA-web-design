@@ -14,15 +14,15 @@ from code.train import word_to_index
 
 MAX_SENTENCE_LENGTH = 40
 MAX_NB_WORDS = 50000  # 处理的最大单词数量
-
+path = "/Users/jianglingjun/Document/PycharmProjects/SA-web-design/"
 
 # 手动输入句子分析
 def input_sentence(INPUT_SENTENCE):
-    model = load_model('../data/train_model.h5')
-    return predict(INPUT_SENTENCE,model)
+    model = load_model(path+'/data/train_model.h5')
+    return predict(INPUT_SENTENCE, model)
 
 
-def predict(text,model):
+def predict(text, model):
     word2index, vocab_size, num_recs, word_freqs = word_to_index(0, 0, collections.Counter())
     # 使用numpy生成一个list的数组
     input_lsit = np.empty(1, dtype=list)
@@ -42,6 +42,6 @@ def predict(text,model):
 
 
 if __name__ == '__main__':
-    word = ''
+    word = 'I love you'
     result = input_sentence(word)
     print result

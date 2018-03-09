@@ -16,8 +16,8 @@ var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
 <script type=text/javascript>
   $(function() {
     function submit_form(e) {
-        $.getJSON($SCRIPT_ROOT + '/train', {
-            trainStr: $('input[name="trainStr"]').val()
+        $.getJSON($SCRIPT_ROOT + '/predict', {
+            trainStr: $('input[name="q"]').val()
         },
         function(data) {
             $('#train_result').text(data.result);
@@ -28,7 +28,7 @@ var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
 });
 </script>
 <h1>文本情感分析</h1>
-<p><a><input type="text" name="trainStr"></a>
+<p><a><input type="text" name="q"></a>
     <p><input type="button" id="train" value="分析"></p>
 <p><span id=train_result>?</span></p>
 </html>
