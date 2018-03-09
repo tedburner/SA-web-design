@@ -10,61 +10,25 @@ var progressBar = {
     }
 };
 
-var prediction = {
-    set: function (q, predictedValue, predictedClass) {
-        $("#predicted_class").text(CLASSES[predictedClass]);
-        $("#predicted_value").text(predictedValue);
-        $("#predicted_query").text(q);
-        prediction.toggleClasses(predictedClass);
-    },
-    toggleClasses: function (predictedClass) {
-        $("#prediction").removeClass("alert-" + CSS_CLASSES[1 - predictedClass]);
-        $("#prediction").addClass("alert-" + CSS_CLASSES[predictedClass]);
-    },
+var show_image = {
     show: function () {
-        $("#prediction").fadeIn();
+        $("#showImage").show();
     },
     hide: function () {
-        $("#prediction").hide();
+        $("#showImage").hide();
     }
 };
-
-var examples = {
-    show: function () {
-        $(".examples").fadeIn(1500);
-    },
-    add: function (q, predicted, real) {
-        $line = $("<tr>")
-        $div = $("<div>").html(q)
-        $line.append($("<td class='text'>").text($div.text()));
-        $line.append(examples.classCell(predicted));
-        $line.append(examples.classCell(real));
-        $(".example_items").append($line);
-    },
-    addAll: function (items) {
-        $.each(items, function (i, item) {
-            predicted = parseInt(item.predicted);
-            real = parseInt(item.real);
-            examples.add(item.q, predicted, real);
-        });
-    },
-    classCell: function (value) {
-        return $("<td>").text(CLASSES[value]).addClass(CSS_CLASSES[value]);
-    }
-}
 
 $(function () {
     $("#predict_form").submit(function (e) {
         e.preventDefault();
-        prediction.hide();
-        progressBar.show();
+        show_image.hide();
+        //progressBar.show();
 
         $.getJSON("/predict", $(this).serialize()).always(function () {
-            progressBar.hide();
+            //progressBar.hide();
         }).done(function (data) {
-            var predictedClass = parseInt(data.predicted_class);
-            prediction.set(data.q, data.prediction, predictedClass);
-            prediction.show();
+            show_image.show();
         });
     });
     $("#train_form").submit(function (e) {
@@ -76,18 +40,9 @@ $(function () {
         }).done(function (data) {
             if (data.result == 1) {
                 alert("训练成功！");
-            }else {
+            } else {
                 alert("亲，出错了？？？？");
             }
-        });
-    });
-
-    $.getJSON("/examples").done(function (data) {
-        examples.addAll(data.items);
-        examples.show()
-
-        $("td.text").click(function () {
-            $(this).toggleClass("hover", 10000)
         });
     });
 });

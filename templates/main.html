@@ -16,15 +16,10 @@
 <body>
 <div class="container">
     <div class="jumbotron">
-        <h1 align="center">Sentiment Analysis</h1>
-        <div></div>
-        <div></div>
-        <div id="prediction" class="collapse alert alert-success" role="alert">
-            <strong>
-                <span id="predicted_class">Positive</span>
-                (<span id="predicted_value"></span>)!
-            </strong>
-            <span id="predicted_query">=)</span>
+        <div>
+            <div>
+                <h1 align="center">Sentiment Analysis</h1>
+            </div>
         </div>
         <div class="progress collapse">
             <div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar"
@@ -42,6 +37,14 @@
             </div>
         </form>
         <div>
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">结果显示</div>
+                    <div class="panel-body" align="center">
+                        <img id="showImage" src="{{ url_for('static', filename='images/') }}{{ image_name }}" height="200" width="200">
+                    </div>
+                </div>
+            </div>
 
         </div>
         <div>

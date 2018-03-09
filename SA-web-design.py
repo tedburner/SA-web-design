@@ -13,6 +13,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER  # 设置文件上传的目标文件
 basedir = os.path.abspath(os.path.dirname(__file__))  # 获取当前项目的绝对路径
 ALLOWED_EXTENSIONS = set(['txt', 'png', 'jpg', 'xls', 'JPG', 'PNG', 'xlsx', 'gif', 'GIF'])  # 允许上传的文件后缀
 
+
 @app.route('/')
 def index():
     return render_template('main.html')
@@ -46,6 +47,7 @@ def upload_file():
         file_url = url_for('uploaded_file', filename=filename)
         print file_url
 
+
 # 下载训练集
 @app.route('/data/<filename>')
 def download(filename):
@@ -61,8 +63,10 @@ def s_a():
     print '分析'
     q = request.args.get('q')
     result = input_sentence(q)
-    print result
-    return jsonify(result=result)
+    if result == 1:
+        return (render_template('main.html', image_name='laugh.jpeg'))
+    elif result == 0:
+        return (render_template('main.html', image_name='cry.jpeg'))
 
 
 if __name__ == '__main__':

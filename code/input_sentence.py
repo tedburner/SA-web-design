@@ -37,11 +37,11 @@ def predict(text, model):
     input_lsit[0] = seq
     input_lsit = sequence.pad_sequences(input_lsit, maxlen=MAX_SENTENCE_LENGTH)
     labels = [int(round(x[0])) for x in model.predict(input_lsit)]
-    label2word = {1: '积极', 0: '消极'}
-    return label2word[labels[0]]
+    return labels[0]
 
 
 if __name__ == '__main__':
     word = 'I love you'
     result = input_sentence(word)
-    print result
+    label2word = {1: '积极', 0: '消极'}
+    print label2word[result]
