@@ -8,16 +8,13 @@ from sklearn.model_selection import train_test_split
 import collections
 import nltk
 import numpy as np
-
-# EDA
+from utils.constant import *
 from utils.lstm_train import make_model
 
-MAX_SENTENCE_LENGTH = 40
-path = "/Users/jianglingjun/Document/PycharmProjects/SA-web-design/"
 
 def word_to_index(maxlen, num_recs, word_freqs):
     # 文本转为索引数字模式
-    with open(path+'data/train_data.txt', 'r+') as f:
+    with open(path + 'data/train_data.txt', 'r+') as f:
         for line in f:
             label, sentence = line.strip().split("\t")
             words = nltk.word_tokenize(sentence.lower())
@@ -49,7 +46,7 @@ def train():
     y = np.zeros(num_recs)
     i = 0
 
-    with open(path+'data/train_data.txt', 'r+') as f:
+    with open(path + 'data/train_data.txt', 'r+') as f:
         for line in f:
             label, sentence = line.strip().split("\t")
             words = nltk.word_tokenize(sentence.lower())
@@ -70,7 +67,7 @@ def train():
     # 训练模型
     model = make_model(vocab_size, Xtrain, ytrain, Xtest, ytest)
 
-    model.save(path+'data/train_model.h5')
+    model.save(path + 'data/train_model.h5')
 
 
 if __name__ == '__main__':

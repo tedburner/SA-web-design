@@ -6,17 +6,7 @@
 # 定义网络结构
 from keras import Sequential
 from keras.layers import Embedding, LSTM, Dropout, Dense, Activation
-
-# 参数设置
-from keras.preprocessing.sequence import pad_sequences
-from keras.preprocessing.text import Tokenizer
-
-EMBEDDING_SIZE = 128
-HIDDEN_LAYER_SIZE = 64
-BATCH_SIZE = 32
-NUM_EPOCHS = 10
-MAX_FEATURES = 2000
-MAX_SENTENCE_LENGTH = 40
+from utils.constant import *
 
 
 def make_model(vocab_size, X_train, Y_train, X_test, Y_test):

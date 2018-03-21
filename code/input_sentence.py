@@ -11,10 +11,8 @@ from keras.preprocessing.text import Tokenizer
 import collections
 
 from code.train import word_to_index
+from utils.constant import *
 
-MAX_SENTENCE_LENGTH = 40
-MAX_NB_WORDS = 50000  # 处理的最大单词数量
-path = "/Users/jianglingjun/Document/PycharmProjects/SA-web-design/"
 
 # 手动输入句子分析
 def input_sentence(INPUT_SENTENCE):
