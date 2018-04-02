@@ -37,6 +37,7 @@ def uploaded_file(filename):
                                filename)
 
 
+# 上传文件
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
