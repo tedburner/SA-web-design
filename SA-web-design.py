@@ -48,13 +48,11 @@ def upload_file():
         print file_url
 
 
-# 下载训练集
-@app.route('/data/<filename>')
-def download(filename):
-    print('下载训练集')
-    directory = os.getcwd()  # 假设在当前目录
-    print directory
-    return send_from_directory(directory, filename, as_attachment=True)
+# 下载功能
+@app.route("/download/<path:filename>")
+def downloader(filename):
+    dirpath = os.path.join(app.root_path, 'data')  # 这里是下在目录，从工程的根目录写起，比如你要下载static/js里面的js文件，这里就要写“static/js”
+    return send_from_directory(dirpath, filename, as_attachment=True)  # as_attachment=True 一定要写，不然会变成打开，而不是下载
 
 
 # 情感分析
