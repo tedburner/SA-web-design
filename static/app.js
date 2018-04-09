@@ -10,6 +10,8 @@ var progressBar = {
     }
 };
 
+$("#showImage").hide();
+
 var show_image = {
     show: function () {
         $("#showImage").show();
@@ -23,11 +25,15 @@ $(function () {
     $("#predict_form").submit(function (e) {
         e.preventDefault();
         show_image.hide();
-        //progressBar.show();
+        progressBar.show();
 
         $.getJSON("/predict", $(this).serialize()).always(function () {
-            //progressBar.hide();
+            progressBar.hide();
         }).done(function (data) {
+            //predicted_image.set(data.q, data.image_url);
+            $('#predicted_image_url')[0].src = data.image_url;
+            console.log($('#predicted_image_url')[0].src);
+            //$("#predicted_image_url").attr("src", data.image_url);
             show_image.show();
         });
     });

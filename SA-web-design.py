@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 
 from code.input_sentence import input_sentence
 from code.train import train
+from utils.constant import image_urls
 
 app = Flask(__name__)
 
@@ -62,10 +63,13 @@ def s_a():
     print '分析'
     q = request.args.get('q')
     result = input_sentence(q)
+    print image_urls[result]
     if result == 1:
-        return (render_template('main.html', image_name='laugh.jpeg'))
+        print "laugh.jpeg"
+        return jsonify(image_url=image_urls[1])
     elif result == 0:
-        return (render_template('main.html', image_name='cry.jpeg'))
+        print "cry.jpeg"
+        return jsonify(image_url=image_urls[0])
 
 
 if __name__ == '__main__':
