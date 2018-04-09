@@ -65,10 +65,8 @@ def s_a():
     result = input_sentence(q)
     print image_urls[result]
     if result == 1:
-        print "laugh.jpeg"
         return jsonify(image_url=image_urls[1])
     elif result == 0:
-        print "cry.jpeg"
         return jsonify(image_url=image_urls[0])
 
 

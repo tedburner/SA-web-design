@@ -14,5 +14,6 @@ BATCH_SIZE = 32
 NUM_EPOCHS = 10
 MAX_FEATURES = 2000
 MAX_SENTENCE_LENGTH = 40
-
-image_urls = ['http://p1gixpzpk.bkt.clouddn.com/cry.jpeg', 'http://p1gixpzpk.bkt.clouddn.com/laugh.jpeg', ]
+# 七牛云上的图片
+image_urls = ['http://p1gixpzpk.bkt.clouddn.com/cry.jpeg',
+              'http://p1gixpzpk.bkt.clouddn.com/laugh.jpeg', ]
