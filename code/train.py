@@ -3,11 +3,16 @@
 # @author : lingjun.jlj
 # @create : 2018/3/2
 
-from keras.preprocessing import sequence
-from sklearn.model_selection import train_test_split
-import collections
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 import nltk
 import numpy as np
+from keras.preprocessing import sequence
+from sklearn.model_selection import train_test_split
+
+from code.Vocabulary import load_data
 from utils.constant import *
 from utils.lstm_train import make_model
 
@@ -23,6 +28,18 @@ def word_to_index(maxlen, num_recs, word_freqs):
             for word in words:
                 word_freqs[word] += 1
             num_recs += 1
+    data = load_data(12499, 12499)
+    i = 0
+    for sentence, label in data:
+        i = i + 1
+        print i
+        words = nltk.word_tokenize(sentence.decode('utf-8').lower())
+        if len(words) > maxlen:
+            maxlen = len(words)
+        for word in words:
+            word_freqs[word] += 1
+        num_recs += 1
+
     print('max_len ', maxlen)
     print('nb_words ', len(word_freqs))
 
@@ -59,15 +76,31 @@ def train():
             X[i] = seqs
             y[i] = int(label)
             i += 1
+
+    data = load_data(12499, 12499)
+    for sentence, label in data:
+        words = nltk.word_tokenize(sentence.decode('utf-8').lower())
+        seq = []
+        for word in words:
+            if word in word2index:
+                seq.append(word2index[word])
+            else:
+                seq.append(word2index["UNK"])
+        X[i] = seq
+        y[i] = int(label)
+        i += 1
+
     X = sequence.pad_sequences(X, maxlen=MAX_SENTENCE_LENGTH)
 
     # 数据划分 80% 作为训练数据，20% 作为测试数据
-    Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size=0.2, random_state=42)
+    Xtrain, Xtest, Ytrain, Ytest = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # 训练模型
-    model = make_model(vocab_size, Xtrain, ytrain, Xtest, ytest)
+    model = make_model(vocab_size, Xtrain, Ytrain, Xtest, Ytest)
 
     model.save(path + 'data/train_model.h5')
+
+    print "训练结束"
 
 
 if __name__ == '__main__':

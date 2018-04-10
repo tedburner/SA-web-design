@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 # @author : lingjun.jlj
 # @create : 2018/3/4
-import numpy as np
+import collections
+
 import nltk
-from nltk.corpus import stopwords
+import numpy as np
 from keras.models import load_model
 from keras.preprocessing import sequence
-from keras.preprocessing.text import Tokenizer
-import collections
 
 from code.train import word_to_index
 from utils.constant import *

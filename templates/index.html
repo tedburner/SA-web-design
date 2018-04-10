@@ -1,34 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>基于深度学习的文本情感分析</title>
+    <title>情感分析</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="static/vendor/bootstrap.lumen.min.css">
+    <link rel="stylesheet" href="static/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="static/app.js"></script>
 </head>
 <body>
-
+<div class="container">
+    <div>
+        <div>
+            <h1 align="center">情感分析</h1>
+        </div>
+    </div>
+    <br><br>
+    <div class="index">
+        <h1 align="center" >训练结果上传成功！</h1>
+    </div>
+    <div >
+            <a class="btn btn-info btn-lg" href="http://127.0.0.1:5000/">返回主页</a>
+    </div>
+</div>
 </body>
-<script type=text/javascript src="{{
-  url_for('static', filename='jquery-3.1.1.js') }}">
-</script>
-<script type=text/javascript>
-var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
-</script>
-<script type=text/javascript>
-  $(function() {
-    function submit_form(e) {
-        $.getJSON($SCRIPT_ROOT + '/predict', {
-            trainStr: $('input[name="q"]').val()
-        },
-        function(data) {
-            $('#train_result').text(data.result);
-        });
-    };
-    // 绑定click事件
-    $('#train').bind('click', submit_form);
-});
-</script>
-<h1>文本情感分析</h1>
-<p><a><input type="text" name="q"></a>
-    <p><input type="button" id="train" value="分析"></p>
-<p><span id=train_result>?</span></p>
 </html>
