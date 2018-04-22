@@ -15,7 +15,7 @@ from utils.constant import *
 
 # 手动输入句子分析
 def input_sentence(INPUT_SENTENCE):
-    model = load_model(path+'/data/train_model.h5')
+    model = load_model(path + '/data/train_model.h5')
     return predict(INPUT_SENTENCE, model)
 
 

@@ -29,10 +29,9 @@ def word_to_index(maxlen, num_recs, word_freqs):
                 word_freqs[word] += 1
             num_recs += 1
     data = load_data(12499, 12499)
-    i = 0
+    # 另一份数据
     for sentence, label in data:
-        i = i + 1
-        print i
+
         words = nltk.word_tokenize(sentence.decode('utf-8').lower())
         if len(words) > maxlen:
             maxlen = len(words)

@@ -37,7 +37,6 @@ def allowed_file(filename):
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
-        # if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return render_template('index.html')
@@ -62,4 +61,4 @@ def S_A():
 
 
 if __name__ == '__main__':
-    app.run(threaded=True)
+    app.run()
