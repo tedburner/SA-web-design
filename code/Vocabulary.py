@@ -62,7 +62,7 @@ def build_model():
     model.add(Embedding(size(), 128))
     model.add(LSTM(128))
     model.add(Dropout(0.5))
-    # model.add(Dense(1, W_regularizer=l2(0.01)))
+    model.add(Dense(1, W_regularizer=l2(0.01)))
     model.add(Activation('sigmoid'))
 
     model.load_weights(path + "data/imdb_lstm.w", by_name=True)
@@ -89,6 +89,7 @@ def classify(X):
 
 
 if __name__ == '__main__':
-    # doc = "This movie, quite literally, does not have one redeeming feature. The characters are one-dimensional, cliched, incredibly misogynistic and stupid. The script looks as if it was cobbled together from 100 other movies, the acting is horrible, and some of the 'gross-out' humour made me feel nauseous.Shame on you, Gregory Poirier, for thinking ANY of this would be funny or interesting!The worst movie I've seen in several years."
-    doc = "Send them to the freezer. This is the solution two butchers find after they discover the popularity of selling human flesh. An incredible story with humor and possible allegories that make it much more than a horror film. The complex characters defy superficial classification and make the story intriguing and worthwhile - if you can stand it. Definitely a dark film but also a bit redemptive."
-    print classify(doc)
+    pos = "This movie, quite literally, does not have one redeeming feature. The characters are one-dimensional, cliched, incredibly misogynistic and stupid. The script looks as if it was cobbled together from 100 other movies, the acting is horrible, and some of the 'gross-out' humour made me feel nauseous.Shame on you, Gregory Poirier, for thinking ANY of this would be funny or interesting!The worst movie I've seen in several years."
+    neg = "Send them to the freezer. This is the solution two butchers find after they discover the popularity of selling human flesh. An incredible story with humor and possible allegories that make it much more than a horror film. The complex characters defy superficial classification and make the story intriguing and worthwhile - if you can stand it. Definitely a dark film but also a bit redemptive."
+    print classify(pos)
+    print classify(neg)

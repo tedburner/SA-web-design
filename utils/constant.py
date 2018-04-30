@@ -16,8 +16,8 @@ MAX_FEATURES = 2000
 MAX_SENTENCE_LENGTH = 400
 max_words = 500
 # 七牛云上的图片
-image_urls = ['https://p1gixpzpk.bkt.clouddn.com/cry.jpeg',
-              'https://p1gixpzpk.bkt.clouddn.com/laugh.jpeg']
+image_urls = ['http://p1gixpzpk.bkt.clouddn.com/cry.jpeg',
+              'http://p1gixpzpk.bkt.clouddn.com/laugh.jpeg']
 
 maxlen = 0  # 句子最大长度
 num_recs = 0  # 样本数
