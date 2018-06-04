@@ -4,8 +4,9 @@
 # @create : 2018/3/2
 # @descrip 定义网络结构
 
-from keras import Sequential, layers
+from keras import Sequential
 from keras.layers import Embedding, LSTM, Dropout, Dense, Activation
+
 from utils.constant import *
 
 
@@ -23,14 +24,15 @@ def make_model(vocab_size, X_train, Y_train, X_test, Y_test):
                    recurrent_dropout=0.2))
 
     model.add(Dropout(0.5))
-
+    # 接下来就加一个 Dense全联接层，抹平就是为了可以把这一个一个点全连接成一个层.
     model.add(Dense(1))
-
+    # 接着再加一个激活函数
     model.add(Activation('sigmoid'))
     # 加载之前训练的结果
     # model.load_weights(path + "/data/train_model.h5")
 
     print '编译模型...'
+    # 二分类问题binary_crossentropy；多分类问题categorical_crossentropy
     model.compile(loss='binary_crossentropy',
                   optimizer='adam',
                   metrics=['accuracy'])

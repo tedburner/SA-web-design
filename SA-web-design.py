@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-from flask import Flask, request, jsonify, send_from_directory, redirect, url_for, render_template
+
+from flask import Flask, request, jsonify, send_from_directory, render_template
 from werkzeug.utils import secure_filename
 
 from code.input_sentence import input_sentence
